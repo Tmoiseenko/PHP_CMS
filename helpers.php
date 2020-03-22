@@ -12,3 +12,8 @@ function array_get($array, $key, $default = null){
     }
     return $output;
 }
+
+function includeLayout(string $template, array $data){
+    extract($data);
+    require VIEW_DIR . '/layout/' . str_replace('.', '/', $template) . '.php';
+}

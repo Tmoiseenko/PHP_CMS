@@ -4,7 +4,7 @@ return [
         'host' => 'localhost',
         'user' => 'admin',
         'password' => 'admin',
-        'name' => 'skill_cms'
+        'name' => 'skillcms'
     ]
 
 ];
