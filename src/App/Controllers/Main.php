@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Views\View;
+use App\Models\User;
 
 class Main
 {
@@ -11,6 +12,13 @@ class Main
         return new View('index', [
            'title'  =>  'Skill CMS Blog',
             'content'   =>  'f;kdsf;lkd;lk'
+        ]);
+    }
+
+    static public function getTest()
+    {
+        return new View('test', [
+            'title'  =>  'Skill CMS Blog',
         ]);
     }
 }

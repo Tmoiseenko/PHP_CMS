@@ -346,11 +346,7 @@ textarea.input {
 \*----------------------------*/
 
 .nav-logo {
-  position: absolute;
-  left: 50%;
-  -webkit-transform: translateX(-50%);
-  -ms-transform: translateX(-50%);
-  transform: translateX(-50%);
+  margin: 10px;
 }
 
 .nav-logo .logo {
@@ -369,8 +365,7 @@ textarea.input {
 \*----------------------------*/
 
 .nav-btns {
-  float: right;
-  padding: 10px 0px;
+  margin: 10px;
 }
 
 .nav-btns>button {

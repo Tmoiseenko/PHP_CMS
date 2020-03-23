@@ -4,35 +4,21 @@
         <!-- Top Nav -->
         <div id="nav-top">
             <div class="container">
-                <!-- social -->
-                <ul class="nav-social">
-                    <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                    <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                    <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
-                    <li><a href="#"><i class="fa fa-instagram"></i></a></li>
-                </ul>
-                <!-- /social -->
+                <div class="d-flex flex-column flex-sm-row justify-content-between align-items-center">
+                    <!-- logo -->
+                    <div class="nav-logo">
+                        <a href="index.html" class="logo"><img src="/public/front/logo.png" alt=""></a>
+                    </div>
+                    <!-- /logo -->
 
-                <!-- logo -->
-                <div class="nav-logo">
-                    <a href="index.html" class="logo"><img src="/public/front/logo.png" alt=""></a>
-                </div>
-                <!-- /logo -->
-
-                <!-- search & aside toggle -->
-                <div class="nav-btns">
-                    <button class="aside-btn"><i class="fa fa-bars"></i></button>
-                    <button class="search-btn"><i class="fa fa-search"></i></button>
-                    <div id="nav-search">
-                        <form>
-                            <input class="input" name="search" placeholder="Enter your search...">
-                        </form>
-                        <button class="nav-close search-close">
-                            <span></span>
-                        </button>
+                    <div class="nav-btns">
+                        <?php if (isset($_SESSION["is_auth"]) && $_SESSION["is_auth"] === true) : ?>
+                            <a href="/profile?email=<?= $_SESSION['user_info']['email'] ?>">Профиль</a> / <a href="/logout">Выйти</a>
+                        <?php else: ?>
+                            <a href="/login">Войти</a> / <a href="/register">Регистрация</a>
+                        <?php endif; ?>
                     </div>
                 </div>
-                <!-- /search & aside toggle -->
             </div>
         </div>
         <!-- /Top Nav -->

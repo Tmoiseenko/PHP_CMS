@@ -18,17 +18,20 @@
                 <div class="col-lg-6 bg-white">
                     <div class="form d-flex align-items-center">
                         <div class="content">
+                            <?php if (isset($_SESSION["is_auth"]) & $_SESSION["is_auth"] === true) : ?>
+                            <div class="alert alert-danger">Введеный логин или пароль не верны или отсутсвуют в базе</div>
+                            <?php endif; ?>
                             <form method="post" class="form-validate">
                                 <div class="form-group">
-                                    <input id="login-username" type="text" name="loginUsername" required data-msg="Please enter your username" class="input-material">
-                                    <label for="login-username" class="label-material">User Name</label>
+                                    <input id="login-username" type="text" name="login" required pattern="^[a-zA-Z0-9]{3,20}$" data-msg="Please enter your username" class="input-material">
+                                    <label for="login-username" class="label-material">Ваше логин</label>
                                 </div>
                                 <div class="form-group">
-                                    <input id="login-password" type="password" name="loginPassword" required data-msg="Please enter your password" class="input-material">
-                                    <label for="login-password" class="label-material">Password</label>
-                                </div><a id="login" href="index.html" class="btn btn-primary">Login</a>
+                                    <input id="login-password" type="password" name="password" required data-msg="Please enter your password" class="input-material">
+                                    <label for="login-password" class="label-material">Ваш пароль</label>
+                                </div><input type="submit" id="login" name="register" href="index.html" class="btn btn-primary" value="Войти">
                                 <!-- This should be submit button but I replaced it with <a> for demo purposes-->
-                            </form><small>Do not have an account? </small><a href="/register" class="signup">Register</a>
+                            </form><small>У вас нет аккаунта? </small><a href="/register" class="signup">Регистрация</a>
                         </div>
                     </div>
                 </div>
