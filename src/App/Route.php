@@ -35,7 +35,7 @@ class Route
 
     public function match($method, $uri)
     {
-        if ($this->method === $method && preg_match('/^' . str_replace(['*', '/'], ['\w+', '\/'], $this->getPath()) . '$/', $uri)) {
+        if ($this->method === $method && preg_match('/^' . str_replace(['*', '/'], ['.*', '\/'], $this->getPath()) . '$/', $uri)) {
             return true;
         }
         return false;
@@ -53,9 +53,9 @@ class Route
         $url_path = trim($url_path, '/');
         $uri_parts = explode('/', $url_path);
         if (count($uri_parts) > 1) {
-            if($uri_parts[0] === 'admin') {
-                array_shift($uri_parts);
-            }
+//            if($uri_parts[0] === 'admin') {
+//                array_shift($uri_parts);
+//            }
             $params = [];
             $i = 0;
             while (count($uri_parts) >= $i) {

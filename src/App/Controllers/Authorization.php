@@ -24,6 +24,8 @@ class Authorization
             $user = User::where('login', '=', htmlspecialchars($_POST['login']))->firstOrFail();
             if(password_verify($_POST['password'], $user->password)){
                 $_SESSION['user_info']['email'] = $user->email;
+                $_SESSION['user_info']['login'] = $user->login;
+                $_SESSION['user_info']['avatar'] = $user->avatar;
                 $_SESSION['user_info']['role'] = $user->role->name;
                 $_SESSION["is_auth"] = true;
                 if (isset($_SESSION["logon_error"])) {

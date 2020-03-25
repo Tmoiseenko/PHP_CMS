@@ -9,8 +9,8 @@ use App\Router;
 use App\Controllers\Authorization;
 use App\Controllers\Registration;
 use App\Controllers\Main;
+use App\Controllers\Admin;
 use App\Application;
-use App\Views\View;
 
 $router = new Router();
 
@@ -21,6 +21,13 @@ $router->post('/login', Authorization::class.'@login');
 $router->get('/logout', Authorization::class.'@logout');
 $router->get('/register', Registration::class.'@getRegisterForm');
 $router->post('/register', Registration::class.'@register');
+$router->get('/admin', Admin::class.'@getIndex');
+$router->get('/admin/\w+(\?.*?)?$', Admin::class.'@getModel');
+$router->get('/admin/\w+(\?.*?)?$', Admin::class.'@getModel');
+$router->get('/admin/post/create', Admin::class.'@createPost');
+$router->post('/admin/post/create', Admin::class.'@savePost');
+$router->get('/admin/post/create', Admin::class.'@updatePost');
+$router->post('/admin/post/create', Admin::class.'@updatePost');
 
 
 $application = new Application($router);

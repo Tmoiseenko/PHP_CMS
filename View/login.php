@@ -1,4 +1,4 @@
-<?php require_once VIEW_DIR . '/layout/admin_header.php'; ?>
+<?php require_once VIEW_DIR . '/layout/base/admin_header.php'; ?>
 <div class="page login-page">
     <div class="container d-flex align-items-center">
         <div class="form-holder has-shadow">
@@ -18,7 +18,7 @@
                 <div class="col-lg-6 bg-white">
                     <div class="form d-flex align-items-center">
                         <div class="content">
-                            <?php if (isset($_SESSION["is_auth"]) & $_SESSION["is_auth"] === true) : ?>
+                            <?php if (isset($_SESSION["is_auth"]) && $_SESSION["is_auth"] === true) : ?>
                             <div class="alert alert-danger">Введеный логин или пароль не верны или отсутсвуют в базе</div>
                             <?php endif; ?>
                             <form method="post" class="form-validate">
@@ -44,4 +44,4 @@
         </p>
     </div>
 </div>
-<?php require_once VIEW_DIR . '/layout/admin_footer.php'; ?>
+<?php require_once VIEW_DIR . '/layout/base/admin_footer.php'; ?>

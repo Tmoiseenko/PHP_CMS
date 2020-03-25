@@ -23,7 +23,7 @@ final class Config
         }
     }
 
-    public static function getInstance()
+    static public function getInstance()
     {
         if (null === static::$instance) {
             static::$instance = new static();

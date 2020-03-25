@@ -11,7 +11,6 @@ class Main
     {
         return new View('index', [
            'title'  =>  'Skill CMS Blog',
-            'content'   =>  'f;kdsf;lkd;lk'
         ]);
     }
 
