@@ -7,7 +7,7 @@
                 <div class="d-flex flex-column flex-sm-row justify-content-between align-items-center">
                     <!-- logo -->
                     <div class="nav-logo">
-                        <a href="index.html" class="logo"><img src="/public/front/logo.png" alt=""></a>
+                        <a href="/" class="logo"><img src="/public/front/logo.png" alt=""></a>
                     </div>
                     <!-- /logo -->
 
