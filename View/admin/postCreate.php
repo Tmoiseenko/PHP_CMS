@@ -12,14 +12,18 @@
                     <input type="text" class="form-control" required name="slug">
                 </div>
                 <div class="form-group row">
+
+                    <?php if ($categories) :?>
+                        <label class="form-control-label">Выберите категорию</label>
+                        <select class="form-control mb-3" required name="category">
+                            <?php
+                            foreach ($categories as $cat) :?>
+                                <option value="<?= $cat->id ?>"><?= $cat->name ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    <?php endif; ?>
                     <label class="form-control-label">Категория</label>
-                    <select class="form-control mb-3" required name="category">
-                        <?php
-                        var_dump($categories);
-                        foreach ($categories as $cat) :?>
-                            <option value="<?= $cat->id ?>"><?= $cat->name ?></option>
-                        <?php endforeach; ?>
-                    </select>
+                    <input type="text" class="form-control" <?= $categories ? '' : 'required' ?> name="addCategory">
                 </div>
                 <div class="form-group row">
                     <label class="form-control-label">Текст</label>

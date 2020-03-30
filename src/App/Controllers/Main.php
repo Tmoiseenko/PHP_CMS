@@ -16,7 +16,7 @@ class Main
         } else {
             $posts = Post::all();
         }
-        $base_per_page = Setting::where('name', '=', "per_page_front")->firstOrFail();
+        $base_per_page = Setting::where('slug', '=', "per_page_front")->firstOrFail();
         $per_page = $_GET['per_page'] ?? ($base_per_page->value ?? '4');
         $current_page = 1;
         if (isset($_GET['page']) && $_GET['page'] > 0) {
@@ -34,7 +34,6 @@ class Main
             'num_pages' => $num_pages,
             'page' => $page,
             'current_page' => $current_page,
-//            'categories'    => Category::all()
         ]);
     }
 }

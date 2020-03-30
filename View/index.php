@@ -21,7 +21,7 @@
                                 </div>
                                 <h3 class="post-title"><a href="/post/<?= $post->id ?>"><?= $post->title ?></a></h3>
                                 <ul class="post-meta">
-                                    <li><?= $post->created_at ?></li>
+                                    <li><?= $post->created_at->toFormattedDateString() ?></li>
                                 </ul>
                             </div>
                         </div>
