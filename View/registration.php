@@ -1,4 +1,4 @@
-<?php require_once VIEW_DIR . '/layout/admin_header.php'; ?>
+<?php require_once VIEW_DIR . '/layout/base/admin_header.php'; ?>
     <div class="page login-page">
         <div class="container d-flex align-items-center">
             <div class="form-holder has-shadow">
@@ -14,8 +14,15 @@
                             </div>
                         </div>
                     </div>
+
                     <!-- Form Panel    -->
                     <div class="col-lg-6 bg-white">
+                        <?php if(isset($error)): ?>
+                            <div class="alert alert-danger m-0">
+                                <?php foreach ($error as $e) {
+                                    echo $e . '</br>';
+                                } ?> </div>
+                        <?php endif; ?>
                         <div class="form d-flex align-items-center">
                             <div class="content">
                                 <form method="post" class="form-validate">
@@ -30,6 +37,16 @@
                                     <div class="form-group">
                                         <input id="register-password" type="password" name="password" required data-msg="Please enter your password" class="input-material">
                                         <label for="register-password" class="label-material">Ваш пароль</label>
+                                    </div>
+                                    <div class="form-group">
+                                        <input id="confirm-password" type="password" name="confirm" required data-msg="Please enter your password" class="input-material">
+                                        <label for="confirm-password" class="label-material">Повторите ваш пароль</label>
+                                    </div>
+                                    <div class="form-group">
+                                                <input class="form-check-input" type="checkbox" id="agreement" name="agreement">
+                                                <label class="form-check-label" for="agreement">
+                                                    Согласие на обработку персональных данных и <a href="">правилами сайта</a>
+                                                </label>
                                     </div>
                                     <div class="form-group">
                                         <input id="regidter" type="submit" name="register" class="btn btn-primary" value="Регистрация">
@@ -47,4 +64,4 @@
             </p>
         </div>
     </div>
-<?php require_once VIEW_DIR . '/layout/admin_footer.php'; ?>
+<?php require_once VIEW_DIR . '/layout/base/admin_footer.php'; ?>

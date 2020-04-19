@@ -10,7 +10,7 @@
             <div class="col-md-8">
                 <!-- row -->
                 <div class="row">
-                    <?php foreach ($posts as $post) :?>
+                    <?php foreach ($objects as $post) :?>
                     <!-- post -->
                     <div class="col-md-6">
                         <div class="post">
@@ -28,9 +28,7 @@
                     </div>
                     <!-- /post -->
                     <?php endforeach; ?>
-
                 </div>
-
                 <!-- /row -->
                 <?php require_once VIEW_DIR . '/pagination.php'; ?>
             </div>

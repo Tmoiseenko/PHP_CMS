@@ -21,7 +21,7 @@
                             <td><?= $object->login ?></td>
                             <td><?= $object->email ?></td>
                             <td><?= $object->role->name ?></td>
-                            <td><a href="/admin/user/update/<?= $object->id  ?>">Изменить</a></td>
+                            <td><a href="/admin/<?= $model ?>/update/<?= $object->id  ?>">Изменить</a></td>
                         </tr>
                     <?php endforeach; ?>
                     </tbody>

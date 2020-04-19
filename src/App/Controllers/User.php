@@ -2,21 +2,17 @@
 
 namespace App\Controllers;
 
+use App\Models\User as UserModel;
 use App\Views\View;
-use Illuminate\Database\Eloquent\Model;
-use App\Models\Category as CategoryModel;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Illuminate\Database\QueryException as QE;
 
-class Category
+class User
 {
-
     static public function getAll($adminTmp = false)
     {
         if (isset($_GET['order_by'])) {
-            $objects = CategoryModel::orderBy($_GET['order_by'], $_GET['order'])->get();
+            $objects = UserModel::orderBy($_GET['order_by'], $_GET['order'])->get();
         } else {
-            $objects = CategoryModel::all();
+            $objects = UserModel::all();
         }
         $base_per_page = \App\Models\Setting::where('slug', '=', "per_page_admin")->firstOrFail();
         $per_page = $_GET['per_page'] ?? ($base_per_page->value ?? '3');
@@ -29,7 +25,7 @@ class Category
         $num_pages = ceil($rows / $per_page);
         $page = 0;
         $objects = $objects->skip($start)->take($per_page);
-        $template = $adminTmp ? 'admin.get-all-category' : 'index' ;
+        $template = $adminTmp ? 'admin.get-all-user' : 'index' ;
         return new View($template, [
             'title'  =>  "Все посты",
             'objects'   =>  $objects,
@@ -38,27 +34,5 @@ class Category
             'current_page' => $current_page,
             'model' => 'post'
         ]);
-    }
-
-    static public function createNewCategoryFromPost($name)
-    {
-        $category = CategoryModel::firstOrNew(['name' => $name]);
-        $category->save();
-        return $category->id;
-    }
-
-    static public function getAllCategory()
-    {
-        $category = CategoryModel::all();
-        if ($category->count() != 0){
-            return $category;
-        } else {
-            return [];
-        }
-    }
-
-    static public function getCountCategory($id)
-    {
-
     }
 }

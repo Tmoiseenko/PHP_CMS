@@ -14,12 +14,11 @@
                         </thead>
                         <tbody>
                         <?php
-                        //                    var_dump($objects);
                         foreach ($objects as $object) : ?>
                             <tr>
                                 <th scope="row"><?= $object->id ?></th>
-                                <td><?= $object->name ?></td>
-                                <td><a href="/admin/<?= $model ?>/update/<?= $object->id  ?>">Изменить</a></td>
+                                <td><?= $object->email ?></td>
+                                <td><a href="/admin/<?= $model ?>/delete/<?= $object->id  ?>">Удалить</a></td>
                             </tr>
                         <?php endforeach; ?>
                         </tbody>

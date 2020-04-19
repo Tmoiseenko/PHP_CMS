@@ -11,6 +11,7 @@ use App\Controllers\Registration;
 use App\Controllers\Main;
 use App\Controllers\Admin;
 use App\Controllers\Post;
+use App\Controllers\Subscribe;
 use App\Application;
 
 $router = new Router();
@@ -26,10 +27,13 @@ $router->get('/register', Registration::class.'@getRegisterForm');
 $router->post('/register', Registration::class.'@register');
 $router->get('/admin', Admin::class.'@getIndex');
 $router->get('/admin/\w+(\?.*?)?$', Admin::class.'@getModel');
-$router->get('/admin/post/create', Admin::class.'@createPost');
-$router->post('/admin/post/create', Admin::class.'@savePost');
-$router->get('/admin/post/update/\d+', Admin::class.'@getUpdatePost');
-$router->post('/admin/post/update/\d+', Admin::class.'@saveUpdatePost');
+$router->get('/admin/post/create', Post::class.'@createPost');
+$router->post('/admin/post/create', Post::class.'@savePost');
+$router->get('/admin/post/update/\d+', Post::class.'@getUpdatePost');
+$router->post('/admin/post/update/\d+', Post::class.'@saveUpdatePost');
+$router->post('/subscribe', Subscribe::class.'@add');
+$router->get('/admin/subscribe/delete/\d+', Subscribe::class.'@delete');
 
 $application = new Application($router);
 $application->run();
+var_dump($_SESSION);

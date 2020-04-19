@@ -1,4 +1,4 @@
-<header id="header">
+<header id="header" class="mb-3">
     <!-- NAV -->
     <div id="nav">
         <!-- Top Nav -->
@@ -13,7 +13,7 @@
 
                     <div class="nav-btns">
                         <?php if (isset($_SESSION["is_auth"]) && $_SESSION["is_auth"] === true) : ?>
-                            <a href="/profile?email=<?= $_SESSION['user_info']['email'] ?>">Профиль</a> / <a href="/logout">Выйти</a>
+                            <a href="/profile/<?= $_SESSION['user_info']['login'] ?>">Профиль</a> / <a href="/logout">Выйти</a>
                         <?php else: ?>
                             <a href="/login">Войти</a> / <a href="/register">Регистрация</a>
                         <?php endif; ?>

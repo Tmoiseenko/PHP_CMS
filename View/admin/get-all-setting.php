@@ -8,7 +8,9 @@
                         <thead>
                         <tr>
                             <th>#</th>
-                            <th>Название категории</th>
+                            <th>Название настройки</th>
+                            <th>Слаг настройки</th>
+                            <th>Значение</th>
                             <th></th>
                         </tr>
                         </thead>
@@ -19,6 +21,8 @@
                             <tr>
                                 <th scope="row"><?= $object->id ?></th>
                                 <td><?= $object->name ?></td>
+                                <td><?= $object->slug ?></td>
+                                <td><?= $object->value ?></td>
                                 <td><a href="/admin/<?= $model ?>/update/<?= $object->id  ?>">Изменить</a></td>
                             </tr>
                         <?php endforeach; ?>

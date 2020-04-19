@@ -4,8 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Setting extends Model
+class Comment extends Model
 {
     public $timestamps = false;
-    protected $fillable = ['name', 'slug', 'value'];
+    protected $fillable = ['text', 'posts_id', 'user_id'];
 }

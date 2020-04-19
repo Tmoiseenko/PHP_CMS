@@ -2,15 +2,15 @@
 
 namespace App\Controllers;
 
+use App\Controllers\Authorization;
 use App\Models\User;
 use App\Views\View;
-use App\Controllers\Authorization;
 
 class Registration
 {
     static public function getRegisterForm()
     {
-        if (isset($_SESSION["is_auth"]) && $_SESSION["is_auth"] !== true) {
+        if (!isset($_SESSION["is_auth"]) || $_SESSION["is_auth"] !== true) {
             return new View('registration', [
                 'title' => 'Регистрация'
             ]);
@@ -26,21 +26,42 @@ class Registration
     static public function register()
     {
         if (isset($_POST['register'])) {
-            $options = [
-                'login' =>  htmlspecialchars($_POST['login']),
-                'email' =>  $_POST['email'],
-                'password'  =>  password_hash($_POST['password'], PASSWORD_BCRYPT),
-                'role_id'   =>  3
-            ];
-           $user = User::firstOrNew($options);
-            try {
-                $user->save();
-                Authorization::login();
-            } catch (\Exception $e){
-                var_dump($e->getMessage());
+            $error = static::checkData($_POST);
+            if ($error === []) {
+                $options = [
+                    'login' =>  htmlspecialchars($_POST['login']),
+                    'email' =>  $_POST['email'],
+                    'password'  =>  password_hash($_POST['password'], PASSWORD_BCRYPT),
+                    'role_id'   =>  3
+                ];
+                $user = User::firstOrNew($options);
+                try {
+                    $user->save();
+                    Authorization::login();
+                } catch (\Exception $e){
+                    return $e->getMessage();
+                }
+            } else {
+                return new View('registration', [
+                    'title' => 'Регистрация',
+                    'error' => $error
+                ]);
             }
 
+
         }
+    }
+
+    static public function checkData(array $post)
+    {
+        $error = [];
+        if ($post['password'] != $post['confirm']) {
+            $error[] = 'Введеные пароли не совпадают.';
+        }
+        if (!isset($post['agreement'])) {
+            $error[] = 'Вы не согласились на обработку персональных данных и правилами сайта.';
+        }
+        return $error;
     }
 
 }

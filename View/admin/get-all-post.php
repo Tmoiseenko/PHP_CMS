@@ -23,7 +23,7 @@
                             <td><?= $object->title ?></td>
                             <td><?= $object->slug ?></td>
                             <td><?= $object->category->name ?></td>
-                            <td><a href="/admin/post/update/<?= $object->id  ?>">Изменить</a></td>
+                            <td><a href="/admin/<?= $model ?>/update/<?= $object->id  ?>">Изменить</a></td>
                         </tr>
                     <?php endforeach; ?>
                     </tbody>

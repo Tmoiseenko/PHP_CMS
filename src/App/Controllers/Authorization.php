@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Controllers\Subscribe;
 use App\Models\User;
 use App\Views\View;
 
@@ -28,6 +29,9 @@ class Authorization
                 $_SESSION['user_info']['avatar'] = $user->avatar;
                 $_SESSION['user_info']['role'] = $user->role->name;
                 $_SESSION["is_auth"] = true;
+                if (Subscribe::checkSubsriber($user->email)) {
+                    $_SESSION['subscribe'] = true;
+                }
                 if (isset($_SESSION["logon_error"])) {
                     unset($_SESSION["logon_error"]);
                 }
@@ -54,6 +58,7 @@ class Authorization
             $_SESSION["is_auth"] = false;
             unset($_SESSION['logon_error']);
             unset($_SESSION['user_info']);
+            unset($_SESSION['subscribe']);
             header("Location: /");
         }
 

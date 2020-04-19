@@ -14,7 +14,6 @@
                         </thead>
                         <tbody>
                         <?php
-                        //                    var_dump($objects);
                         foreach ($objects as $object) : ?>
                             <tr>
                                 <th scope="row"><?= $object->id ?></th>

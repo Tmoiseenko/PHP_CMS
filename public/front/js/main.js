@@ -39,4 +39,5 @@
 	$.stellar({
 		responsive: true
 	});
+
 })(jQuery);
