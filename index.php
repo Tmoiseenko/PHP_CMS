@@ -12,6 +12,8 @@ use App\Controllers\Main;
 use App\Controllers\Admin;
 use App\Controllers\Post;
 use App\Controllers\Subscribe;
+use App\Controllers\Profile;
+
 use App\Application;
 
 $router = new Router();
@@ -33,7 +35,12 @@ $router->get('/admin/post/update/\d+', Post::class.'@getUpdatePost');
 $router->post('/admin/post/update/\d+', Post::class.'@saveUpdatePost');
 $router->post('/subscribe', Subscribe::class.'@add');
 $router->get('/admin/subscribe/delete/\d+', Subscribe::class.'@delete');
+$router->get('/subscribe/delete/user/*', Subscribe::class.'@unsubscribe');
+$router->get('/profile/([a-zA-Z]+)', Profile::class.'@getProfile');
+$router->get('/profile/([a-zA-Z]+)/edit', Profile::class.'@editProfileForm');
+$router->post('/profile/([a-zA-Z]+)/edit', Profile::class.'@editProfile');
+
+
 
 $application = new Application($router);
 $application->run();
-var_dump($_SESSION);

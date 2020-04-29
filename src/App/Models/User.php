@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class User extends Model
 {
     public $timestamps = false;
-    protected $fillable = ['login', 'password', 'role_id', 'email'];
+    protected $fillable = ['login', 'password', 'role_id', 'email', 'avatar', 'about'];
 
     public function role()
     {

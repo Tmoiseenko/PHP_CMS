@@ -35,4 +35,17 @@ class User
             'model' => 'post'
         ]);
     }
+
+    static public function getUser($login)
+    {
+        try {
+            $user = UserModel::where('login', '=', $login)->firstOrFail();
+            return $user;
+        } catch (\Exception $e) {
+            return new View('404', [
+                'title'  =>  'Упс кажется такой страницы нет',
+                'e'    => $e
+            ]);
+        }
+    }
 }

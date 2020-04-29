@@ -158,13 +158,6 @@ class Post
                         }
                     }
                 }
-                $prop = [
-                    'title' => htmlspecialchars($_POST['title']),
-                    'slug' => htmlspecialchars($_POST['slug']),
-                    'content' => htmlspecialchars($_POST['content']),
-                    'category_id' => (int) $_POST['category'],
-                    'image' => $imagePath ?? '',
-                ];
                 try {
                     $category = Category::find((int) $_POST['category']);
                     $post = PostModel::findOrFail($id);

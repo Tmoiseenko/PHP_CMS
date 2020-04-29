@@ -72,4 +72,14 @@ class Subscribe
         $delete = SubscribeModel::destroy($id);
         return static::getAll(true);
     }
+
+    static public function unsubscribe($model, $email)
+    {
+        SubscribeModel::where('email', '=', $email)->delete();
+        unset($_SESSION['subscribe']);
+        return new View('unsubscribe', [
+            'title'  =>  'Подписка',
+            'subscriber'    => $email
+        ]);
+    }
 }
