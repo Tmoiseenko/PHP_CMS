@@ -45,7 +45,7 @@ class Post
 
             $post = PostModel::findOrFail($id);
             return new View('post', [
-                'title'  =>  'Создание Пост',
+                'title'  =>  $post->title,
                 'post'  => $post,
             ]);
         } catch (ModelNotFoundException $e) {

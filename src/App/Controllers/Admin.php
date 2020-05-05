@@ -29,7 +29,6 @@ class Admin
 
     static public function getModel($model)
     {
-
         if (isset($_SESSION["is_auth"]) && $_SESSION["is_auth"] === true){
             switch ($model){
                 case 'post':

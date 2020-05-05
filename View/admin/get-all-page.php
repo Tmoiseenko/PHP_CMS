@@ -9,16 +9,17 @@
                         <tr>
                             <th>#</th>
                             <th>Название категории</th>
+                            <th>Слаг</th>
                             <th></th>
                         </tr>
                         </thead>
                         <tbody>
                         <?php
-                        //                    var_dump($objects);
                         foreach ($objects as $object) : ?>
                             <tr>
                                 <th scope="row"><?= $object->id ?></th>
-                                <td><?= $object->name ?></td>
+                                <td><?= $object->title ?></td>
+                                <td><?= $object->slug ?></td>
                                 <td><a href="/admin/<?= $model ?>/update/<?= $object->id  ?>">Изменить</a></td>
                             </tr>
                         <?php endforeach; ?>

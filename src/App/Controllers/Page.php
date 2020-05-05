@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Models\Page as PageModel;
 use App\Models\Setting;
 use App\Views\View;
+use Illuminate\Database\QueryException as QE;
 
 class Page
 {
@@ -33,7 +34,115 @@ class Page
             'num_pages' => $num_pages,
             'page' => $page,
             'current_page' => $current_page,
-            'model' => 'post'
+            'model' => 'page'
         ]);
     }
+
+    static public function getPage($id)
+    {
+        try {
+            $page = PageModel::findOrFail($id);
+            return new View('page', [
+                'title' => $page->title,
+                'page' => $page,
+            ]);
+        } catch (ModelNotFoundException $e) {
+            return new View('404', [
+                'title' => 'Упс кажется такой страницы нет',
+                'e' => $e
+            ]);
+        } catch (\Exception $e) {
+            return new View('404', [
+                'title' => 'Упс кажется такой страницы нет',
+                'e' => $e
+            ]);
+        }
+    }
+
+    static public function createPage()
+    {
+        if (isset($_SESSION["is_auth"]) && $_SESSION["is_auth"] === true){
+            return new View('admin.pageCreate', [
+                'title'  =>  'Создание Страницы',
+            ]);
+        } else {
+            return header("Location: /login");
+        }
+
+    }
+
+    static public function savePage()
+    {
+        if (isset($_SESSION["is_auth"]) && $_SESSION["is_auth"] === true){
+            if (isset($_POST['createPage'])) {
+
+                $prop = [
+                    'title' => htmlspecialchars($_POST['title']),
+                    'slug' => translit($_POST['title']),
+                    'content' => htmlspecialchars($_POST['content']),
+                ];
+                try {
+                    $post = PageModel::firstOrNew($prop);
+                    $post->save();
+                    return header("Location: /admin/page");
+                } catch (\Exception $e){
+                    return new View('404', [
+                        'title'  =>  'Упс кажется такой страницы нет',
+                        'e'    => $e
+                    ]);
+                }
+            }
+        } else {
+            return header("Location: /login");
+        }
+    }
+
+    static public function getUpdatePage($model, $id)
+    {
+        if (isset($_SESSION["is_auth"]) && $_SESSION["is_auth"] === true){
+            try {
+                $page = PageModel::findOrFail($id);
+                return new View('admin.pageUpdate', [
+                    'title'  =>  'Обновление Страницы',
+                    'page'  => $page,
+                ]);
+            } catch (ModelNotFoundException $e) {
+                return new View('404', [
+                    'title'  =>  'Упс кажется такой страницы нет',
+                    'e'    => $e
+                ]);
+            } catch (\Exception $e) {
+                return new View('404', [
+                    'title'  =>  'Упс кажется такой страницы нет',
+                    'e'    => $e
+                ]);
+            }
+
+        } else {
+            return header("Location: /login");
+        }
+    }
+
+    static public function saveUpdatePage($model, $id)
+    {
+        if (isset($_SESSION["is_auth"]) && $_SESSION["is_auth"] === true){
+            if (isset($_POST['createPage'])) {
+                try {
+                    $post = PageModel::findOrFail($id);
+                    $post->title = htmlspecialchars($_POST['title']);
+                    $post->content = htmlspecialchars($_POST['content']);
+                    $post->save();
+                    return header("Location: /admin/page");
+                } catch (\Exception $e){
+                    return new View('404', [
+                        'title'  =>  'Упс кажется такой страницы нет',
+                        'e'    => $e
+                    ]);
+                }
+            }
+        } else {
+            return header("Location: /login");
+        }
+    }
+
 }
