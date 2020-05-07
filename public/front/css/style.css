@@ -165,6 +165,7 @@ figure>figcaption {
 
 .section {
   padding-top: 30px;
+  min-height: 600px;
 }
 
 .section-row {

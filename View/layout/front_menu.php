@@ -30,8 +30,8 @@
                 <?php $pages = App\Models\Page::all(); ?>
                 <ul class="nav-menu">
                     <li><a href="/">Главная</a></li>
-                    <?php foreach ($pages as $page): ?>
-                        <li><a href="/page/<?= $page->id ?>"><?= $page->title ?></a></li>
+                    <?php foreach ($pages as $stpage): ?>
+                        <li><a href="/page/<?= $stpage->id ?>"><?= $stpage->title ?></a></li>
                     <?php endforeach; ?>
                 </ul>
                 <!-- /nav -->

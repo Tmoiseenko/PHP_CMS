@@ -13,4 +13,9 @@ class User extends Model
     {
         return $this->belongsTo('App\Models\Role');
     }
+
+    public function post()
+    {
+        return $this->hasOne('App\Models\Post');
+    }
 }

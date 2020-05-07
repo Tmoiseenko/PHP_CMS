@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\Setting;
+use App\Models\User;
 use App\Views\View;
 use App\Models\Post as PostModel;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -15,9 +16,10 @@ class Post
         if (isset($_GET['order_by'])) {
             $objects = PostModel::orderBy($_GET['order_by'], $_GET['order'])->get();
         } else {
-            $objects = PostModel::all();
+            $objects = PostModel::orderBy('created_at', 'DESC')->get();
         }
-        $base_per_page = Setting::where('slug', '=', "per_page_admin")->firstOrFail();
+
+        $base_per_page = Setting::where('slug', '=', $adminTmp ? "per_page_admin" : "per_page_front")->firstOrFail();
         $per_page = $_GET['per_page'] ?? ($base_per_page->value ?? '3');
         $current_page = 1;
         if (isset($_GET['page']) && $_GET['page'] > 0) {
@@ -102,6 +104,7 @@ class Post
                     'content' => htmlspecialchars($_POST['content']),
                     'category_id' => $cat_id ?? (int) $_POST['category'],
                     'image' => $imagePath ?? '',
+                    'user_id' => User::where('login', $_SESSION ["user_info"] ["login"])->value('id'),
                 ];
                 try {
                     $post = PostModel::firstOrNew($prop);

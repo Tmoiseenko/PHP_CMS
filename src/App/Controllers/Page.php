@@ -44,7 +44,7 @@ class Page
             $page = PageModel::findOrFail($id);
             return new View('page', [
                 'title' => $page->title,
-                'page' => $page,
+                'content' => $page->content,
             ]);
         } catch (ModelNotFoundException $e) {
             return new View('404', [
@@ -58,6 +58,7 @@ class Page
             ]);
         }
     }
+
 
     static public function createPage()
     {

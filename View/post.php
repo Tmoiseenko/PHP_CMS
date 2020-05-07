@@ -11,10 +11,9 @@
                 </div>
                 <h1>Mel ut impetus suscipit tincidunt. Cum id ullum laboramus persequeris.</h1>
                 <ul class="post-meta">
-                    <li><a href="author.html">John Doe</a></li>
-                    <li>20 April 2018</li>
+                    <li><a href="author.html"><?= $post->user->login ?></a></li>
+                    <li><?= $post->created_at->toFormattedDateString() ?></li>
                     <li><i class="fa fa-comments"></i> 3</li>
-                    <li><i class="fa fa-eye"></i> 807</li>
                 </ul>
             </div>
         </div>

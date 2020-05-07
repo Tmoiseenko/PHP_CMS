@@ -8,13 +8,13 @@
 <div class="section">
     <!-- container -->
     <div class="container">
-        <h1><?= $page->title ?></h1>
+        <h1><?= $title ?></h1>
         <!-- row -->
         <div class="row">
             <div class="col-md-8">
 
                 <!-- post content -->
-                <?= htmlspecialchars_decode($page->content) ?>
+                <?= htmlspecialchars_decode($content) ?>
 
             </div>
 
