@@ -8,7 +8,8 @@
                         <thead>
                         <tr>
                             <th>#</th>
-                            <th>Название категории</th>
+                            <th>ФИО коментатора</th>
+                            <th>ID поста</th>
                             <th></th>
                         </tr>
                         </thead>
@@ -17,8 +18,13 @@
                         foreach ($objects as $object) : ?>
                             <tr>
                                 <th scope="row"><?= $object->id ?></th>
-                                <td><?= $object->name ?></td>
-                                <td><a href="/admin/<?= $model ?>/update/<?= $object->id  ?>">Изменить</a></td>
+                                <td><?= $object->user->fio ?></td>
+                                <td><?= $object->post->id ?></td>
+                                <td>
+                                    <?php if (!$object->moderate): ?>
+                                        <a href="/admin/comment/moderate/<?= $object->id  ?>">Подтвердить</a>
+                                    <?php endif; ?>
+                                </td>
                             </tr>
                         <?php endforeach; ?>
                         </tbody>

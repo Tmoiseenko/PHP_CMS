@@ -3,16 +3,17 @@
 namespace App\Controllers;
 
 use App\Models\Comment as CommentModel;
+use App\Models\User;
 use App\Views\View;
 
 class Comment
 {
-    static public function getAll($adminTmp = false)
+    static public function getAll($adminTmp = falsee)
     {
         if (isset($_GET['order_by'])) {
             $objects = CommentModel::orderBy($_GET['order_by'], $_GET['order'])->get();
         } else {
-            $objects = CommentModel::all();
+            $objects = CommentModel::orderBy('moderate', 'ASC')->get();
         }
         $base_per_page = \App\Models\Setting::where('slug', '=', "per_page_admin")->firstOrFail();
         $per_page = $_GET['per_page'] ?? ($base_per_page->value ?? '3');
@@ -34,5 +35,33 @@ class Comment
             'current_page' => $current_page,
             'model' => 'post'
         ]);
+    }
+
+    static public function saveComment($id)
+    {
+        if (isset($_SESSION["is_auth"]) && $_SESSION["is_auth"] === true) {
+
+            $role = ['administrator', 'moderator'];
+            $user = User::where('login', $_SESSION ["user_info"]["login"])->first();
+            $comment = new CommentModel;
+            $comment->text = htmlspecialchars($_POST['message']);
+            $comment->post_id = $id;
+            $comment->user_id = $user->id;
+            $comment->moderate = in_array($_SESSION ["user_info"]["role"], $role) ? 1 : 0;
+            $comment->save();
+            $ref = $_SERVER["HTTP_REFERER"];
+            return header("Location: $ref");
+        } else {
+            return header("Location: /login");
+        }
+    }
+
+    static public function confirmComment($model, $id)
+    {
+        $comment = CommentModel::findOrFail($id);
+        $comment->moderate = 1;
+        $comment->save();
+        $ref = $_SERVER["HTTP_REFERER"];
+        return header("Location: $ref");
     }
 }

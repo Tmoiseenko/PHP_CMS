@@ -32,11 +32,13 @@ class Profile
             $user = User::getUser($login);
             if (password_verify($_POST['password'], $user->password)) {
                 $login = htmlspecialchars($_POST['login']) != $user->email ? htmlspecialchars($_POST['login']) : $user->email;
+                $fio = htmlspecialchars($_POST['fio']) != $user->email ? htmlspecialchars($_POST['fio']) : $user->fio;
                 $newPassword = $_POST['newPassword'] != '' ? password_hash($_POST['newPassword'], PASSWORD_BCRYPT) : $user->password;
                 $email = $_POST['email'] != $user->email ? $_POST['email'] : $user->email;
                 $avatar = $_POST['avatar'] != '' ? UPLOAD_DIR . $_POST['avatar'] : $user->avatar;
                 $about = htmlspecialchars($_POST['about']) != $user->about ? htmlspecialchars($_POST['about']) : $user->about;
 
+                $user->fio = $fio;
                 $user->email = $email;
                 $user->login = $login;
                 $user->password = $newPassword;

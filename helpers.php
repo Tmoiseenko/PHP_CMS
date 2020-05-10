@@ -30,3 +30,12 @@ function translit($s) {
     $s = str_replace(" ", "-", $s); // заменяем пробелы знаком минус
     return $s; // возвращаем результат
 }
+
+function countPosts($id) {
+    $post = App\Models\Post::where('category_id', $id)->get();
+    return $post->count();
+}
+
+function excerpt($text) {
+    return mb_strimwidth($text, 0, 100, "...");
+}

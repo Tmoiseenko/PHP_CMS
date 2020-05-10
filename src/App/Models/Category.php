@@ -9,7 +9,7 @@ class Category extends Model
     protected $table = 'categories';
     protected $fillable = ['name'];
 
-    public function category()
+    public function posts()
     {
         return $this->hasOne('App\Models\Post');
     }

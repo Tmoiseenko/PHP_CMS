@@ -10,6 +10,10 @@
             <?php endif; ?>
                 <form method="post" class="form-validate">
                     <div class="form-group">
+                        <label for="register-username" class="label-material">Ваше ФИО</label>
+                        <input  class="form-control" id="register-username" type="text" name="fio" required value="<?= $profile->fio ?>">
+                    </div>
+                    <div class="form-group">
                         <label for="register-username" class="label-material">Ваше никнейм</label>
                         <input  class="form-control" id="register-username" type="text" name="login" required pattern="^[a-zA-Z0-9]{3,20}$" value="<?= $profile->login ?>">
                     </div>

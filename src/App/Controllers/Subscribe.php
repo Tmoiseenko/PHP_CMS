@@ -82,4 +82,20 @@ class Subscribe
             'subscriber'    => $email
         ]);
     }
+
+    static public function notify($obj)
+    {
+        $emails = SubscribeModel::all()->pluck('email');
+        $file = APP_DIR . 'logs/emails.txt';
+        foreach ($emails as $email) {
+            $text  = "Получатель: " . $email . " -- дата отпрвки: " . date('Y/m/d H:i' . PHP_EOL);
+            $text .= "Заголовок письма: На сайте добавлена новая запись: '$obj->title'" . PHP_EOL;
+            $text .= "Новая статья: '$obj->title'," . PHP_EOL;
+            $text .= excerpt($obj->content) . PHP_EOL;
+            $text .= "HOME_URL/post/" . $obj->id . PHP_EOL;
+            $text .= "**********************************************************************" . PHP_EOL;
+            file_put_contents($file, $text, FILE_APPEND);
+        }
+
+    }
 }

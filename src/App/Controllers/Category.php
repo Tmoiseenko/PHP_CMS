@@ -3,10 +3,7 @@
 namespace App\Controllers;
 
 use App\Views\View;
-use Illuminate\Database\Eloquent\Model;
 use App\Models\Category as CategoryModel;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Illuminate\Database\QueryException as QE;
 
 class Category
 {
@@ -55,10 +52,5 @@ class Category
         } else {
             return [];
         }
-    }
-
-    static public function getCountCategory($id)
-    {
-
     }
 }

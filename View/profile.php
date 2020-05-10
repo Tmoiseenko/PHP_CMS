@@ -5,12 +5,18 @@
         <div class="col-8">
             <div class="row">
                 <div class="col-4">
-                    <img src="<?= HOME_URL . $profile->avatar ?>" class="rounded img-thumbnail" alt="avatar">
+                    <?php
+                    $img_url = HOME_URL . '/public/uploaded/avatar.jpg';
+                    if($profile->avatar){
+                        $img_url = HOME_URL . $profile->avatar;
+                    } ?>
+                    <img src="<?= $img_url ?>" class="rounded img-thumbnail" alt="avatar">
                     <?php if ($subscribe) : ?>
                         <a href="/subscribe/delete/user/<?= $profile->email ?>" class="primary-button text-center mt-5">Отписаться</a>
                     <?php endif; ?>
                 </div>
                 <div class="col-8">
+                    <p><strong>ФИО:</strong> <?= $profile->fio ?></p>
                     <p><strong>Логин:</strong> <?= $profile->login ?></p>
                     <p><strong>Email:</strong> <?= $profile->email ?></p>
                     <p><strong>Роли:</strong> <?= $profile->role->name ?></p>

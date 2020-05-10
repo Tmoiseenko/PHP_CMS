@@ -4,6 +4,10 @@ namespace App\Controllers;
 
 use App\Models\Setting;
 use App\Models\User;
+use App\Models\Comment;
+use App\Models\Category as CatModel;
+use App\Controllers\Category;
+use App\Controllers\Subscribe;
 use App\Views\View;
 use App\Models\Post as PostModel;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -44,11 +48,13 @@ class Post
     static public function getPost($id)
     {
         try {
-
+            $comment = Comment::where(['post_id' => $id, 'moderate' => 1])->get();
             $post = PostModel::findOrFail($id);
             return new View('post', [
                 'title'  =>  $post->title,
                 'post'  => $post,
+                'comments' => $comment,
+                'comment_count' => $comment->count()
             ]);
         } catch (ModelNotFoundException $e) {
             return new View('404', [
@@ -82,6 +88,9 @@ class Post
 
     }
 
+    /**
+     * @return View|void
+     */
     static public function savePost()
     {
         if (isset($_SESSION["is_auth"]) && $_SESSION["is_auth"] === true){
@@ -109,6 +118,7 @@ class Post
                 try {
                     $post = PostModel::firstOrNew($prop);
                     $post->save();
+                    static::notify($post);
                     return header("Location: /admin/post");
                 } catch (\Exception $e){
                     return new View('404', [
@@ -162,7 +172,8 @@ class Post
                     }
                 }
                 try {
-                    $category = Category::find((int) $_POST['category']);
+
+                    $category = CatModel::findOrFail((int) $_POST['category']);
                     $post = PostModel::findOrFail($id);
                     $post->title = htmlspecialchars($_POST['title']);
                     $post->slug = htmlspecialchars($_POST['slug']);
@@ -184,4 +195,35 @@ class Post
             return header("Location: /login");
         }
     }
+
+    static public function getPostsForCategory($id)
+    {
+        $cat = CatModel::findOrFail($id);
+        $objects = PostModel::where('category_id', $id)->orderBy('created_at', 'DESC')->get();
+        $base_per_page = Setting::where('slug', '=', "per_page_front")->firstOrFail();
+        $per_page = $_GET['per_page'] ?? ($base_per_page->value ?? '3');
+        $current_page = 1;
+        if (isset($_GET['page']) && $_GET['page'] > 0) {
+            $current_page = $_GET['page'];
+        }
+        $start = ($current_page - 1) * $per_page;
+        $rows = $objects->count();
+        $num_pages = ceil($rows / $per_page);
+        $page = 0;
+        $objects = $objects->skip($start)->take($per_page);
+        return new View('index', [
+            'title'  =>  "Посты в категории " . $cat->name,
+            'objects'   =>  $objects,
+            'num_pages' => $num_pages,
+            'page' => $page,
+            'current_page' => $current_page,
+            'model' => 'post'
+        ]);
+    }
+
+    static public function notify($message)
+    {
+        Subscribe::notify($message);
+    }
+
 }
