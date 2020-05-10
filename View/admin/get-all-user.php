@@ -1,5 +1,4 @@
 <?php require_once VIEW_DIR . '/layout/admin_header.php'; ?>
-<?php require_once VIEW_DIR . '/admin/admin_filter.php'; ?>
 <div class="col-lg-12">
     <div class="card">
         <div class="card-body">
@@ -21,7 +20,7 @@
                             <td><?= $object->login ?></td>
                             <td><?= $object->email ?></td>
                             <td><?= $object->role->name ?></td>
-                            <td><a href="/admin/<?= $model ?>/update/<?= $object->id  ?>">Изменить</a></td>
+                            <td><a href="/admin/<?= $model ?>/update/<?= $object->id  ?>">Изменить права</a></td>
                         </tr>
                     <?php endforeach; ?>
                     </tbody>

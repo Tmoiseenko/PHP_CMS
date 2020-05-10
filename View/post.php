@@ -12,7 +12,7 @@
                 <h1>Mel ut impetus suscipit tincidunt. Cum id ullum laboramus persequeris.</h1>
                 <ul class="post-meta">
                     <li><a href="/profile/<?= $post->user->login ?>"><?= $post->user->fio ?></a></li>
-                    <li><?= $post->created_at->toFormattedDateString() ?></li>
+                    <li><?= $post->created_at ?></li>
                     <li><i class="fa fa-comments"></i> <?= $comment_count ?></li>
                 </ul>
             </div>

@@ -15,7 +15,8 @@ use App\Controllers\Page;
 use App\Controllers\Subscribe;
 use App\Controllers\Profile;
 use App\Controllers\Comment;
-use App\Controllers\Category;
+use App\Controllers\User;
+
 
 use App\Application;
 
@@ -42,6 +43,8 @@ $router->post('/admin/page/create', Page::class.'@savePage');
 $router->get('/admin/page/update/\d+', Page::class.'@getUpdatePage');
 $router->post('/admin/page/update/\d+', Page::class.'@saveUpdatePage');
 $router->get('/admin/comment/moderate/\d+', Comment::class.'@confirmComment');
+$router->get('/admin/user/update/\d+', User::class.'@getEditRole');
+$router->post('/admin/user/update/\d+', User::class.'@saveEditRole');
 
 $router->post('/subscribe', Subscribe::class.'@add');
 $router->get('/subscribe/delete/user/*', Subscribe::class.'@unsubscribe');
@@ -50,6 +53,7 @@ $router->get('/profile/([a-zA-Z]+)/edit', Profile::class.'@editProfileForm');
 $router->post('/profile/([a-zA-Z]+)/edit', Profile::class.'@editProfile');
 $router->post('/comment/\d+', Comment::class.'@saveComment');
 $router->get('/category/\d+', Post::class.'@getPostsForCategory');
+$router->get('/category/\d+(\?.*?)?$', Post::class.'@getPostsForCategory');
 
 
 

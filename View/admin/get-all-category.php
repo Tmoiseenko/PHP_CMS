@@ -1,5 +1,4 @@
 <?php require_once VIEW_DIR . '/layout/admin_header.php'; ?>
-<?php require_once VIEW_DIR . '/admin/admin_filter.php'; ?>
     <div class="col-lg-12">
         <div class="card">
             <div class="card-body">

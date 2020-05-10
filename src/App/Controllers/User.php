@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\User as UserModel;
+use App\Models\Role;
 use App\Views\View;
 
 class User
@@ -32,7 +33,7 @@ class User
             'num_pages' => $num_pages,
             'page' => $page,
             'current_page' => $current_page,
-            'model' => 'post'
+            'model' => 'user'
         ]);
     }
 
@@ -47,5 +48,23 @@ class User
                 'e'    => $e
             ]);
         }
+    }
+
+    static public function getEditRole($model, $id)
+    {
+        return new View('admin.editRole', [
+            'title'  =>  'Изменение роли пользователя',
+            'user'    => UserModel::findOrFail($id),
+            'roles'    => Role::all()
+        ]);
+    }
+
+    static public function saveEditRole($model, $id)
+    {
+        $role = Role::findOrFail((int) $_POST['role']);
+        $user = UserModel::findOrFail($id);
+        $user->role()->associate($role);
+        $user->save();
+        return header("Location: /admin/user");
     }
 }

@@ -107,16 +107,19 @@ class Post
                 if(isset($_POST['addCategory'])){
                     $cat_id = Category::createNewCategoryFromPost(htmlspecialchars($_POST['addCategory']));
                 }
+                $user = User::where('login', $_SESSION ["user_info"]["login"])->get();
+                $cat = User::findOrFail((int) $_POST['category']);
                 $prop = [
                     'title' => htmlspecialchars($_POST['title']),
                     'slug' => htmlspecialchars($_POST['slug']),
                     'content' => htmlspecialchars($_POST['content']),
                     'category_id' => $cat_id ?? (int) $_POST['category'],
                     'image' => $imagePath ?? '',
-                    'user_id' => User::where('login', $_SESSION ["user_info"] ["login"])->value('id'),
                 ];
                 try {
                     $post = PostModel::firstOrNew($prop);
+                    $post->user()->associate($user[0]);
+                    $post->category()->associate($cat);
                     $post->save();
                     static::notify($post);
                     return header("Location: /admin/post");

@@ -1,5 +1,4 @@
 <?php require_once VIEW_DIR . '/layout/admin_header.php'; ?>
-<?php require_once VIEW_DIR . '/admin/admin_filter.php'; ?>
     <div class="col-lg-12">
         <div class="card">
             <div class="card-body">
@@ -11,7 +10,6 @@
                             <th>Название настройки</th>
                             <th>Слаг настройки</th>
                             <th>Значение</th>
-                            <th></th>
                         </tr>
                         </thead>
                         <tbody>
@@ -23,7 +21,6 @@
                                 <td><?= $object->name ?></td>
                                 <td><?= $object->slug ?></td>
                                 <td><?= $object->value ?></td>
-                                <td><a href="/admin/<?= $model ?>/update/<?= $object->id  ?>">Изменить</a></td>
                             </tr>
                         <?php endforeach; ?>
                         </tbody>
