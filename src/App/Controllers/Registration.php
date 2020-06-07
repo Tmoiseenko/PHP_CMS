@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Controllers\Authorization;
+use App\Controllers\User as C_User;
 use App\Models\User;
 use App\Views\View;
 
@@ -34,13 +35,23 @@ class Registration
                     'password'  =>  password_hash($_POST['password'], PASSWORD_BCRYPT),
                     'role_id'   =>  3
                 ];
-                $user = User::firstOrNew($options);
-                try {
-                    $user->save();
-                    Authorization::login();
-                } catch (\Exception $e){
-                    return $e->getMessage();
+                $chekUser = C_User::chekUserLogin($options['login']);
+                if (!C_User::chekUserLogin($options['login'])){
+                    try {
+                        $user = User::firstOrNew($options);
+                        $user->save();
+                        Authorization::login();
+                    } catch (\Exception $e){
+                        return $e->getMessage();
+                    }
+                } else {
+                    $error[] = 'Данный логин уже существует';
+                    return new View('registration', [
+                        'title' => 'Регистрация',
+                        'error' => $error
+                    ]);
                 }
+
             } else {
                 return new View('registration', [
                     'title' => 'Регистрация',

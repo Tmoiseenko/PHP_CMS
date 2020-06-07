@@ -18,7 +18,7 @@
                 <div class="col-lg-6 bg-white">
                     <div class="form d-flex align-items-center">
                         <div class="content">
-                            <?php if (isset($_SESSION["is_auth"]) && $_SESSION["is_auth"] === true) : ?>
+                            <?php if (isset($_SESSION["logon_error"]) && $_SESSION["logon_error"] === true) : ?>
                             <div class="alert alert-danger">Введеный логин или пароль не верны или отсутсвуют в базе</div>
                             <?php endif; ?>
                             <form method="post" class="form-validate">

@@ -21,7 +21,7 @@
                     <p><strong>Email:</strong> <?= $profile->email ?></p>
                     <p><strong>Роли:</strong> <?= $profile->role->name ?></p>
                     <p><strong>О себе:</strong> <?= $profile->about ?></p>
-                    <a href="/profile/<?= $profile->login ?>/edit" class="primary-button text-center mt-5">Редактировать профиль</a>
+                    <a href="/profile/<?= $profile->id ?>/edit" class="primary-button text-center mt-5">Редактировать профиль</a>
                 </div>
             </div>
         </div>

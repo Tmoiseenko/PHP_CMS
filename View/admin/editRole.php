@@ -10,7 +10,7 @@
                             <select class="form-control mb-3" required name="role">
                                 <?php
                                 foreach ($roles as $role) :?>
-                                    <option value="<?= $role->id ?>"><?= $role->name ?></option>
+                                    <option <?php echo $user->role->id === $role->id ? "selected" : ""; ?> value="<?= $role->id ?>"><?= $role->name ?></option>
                                 <?php endforeach; ?>
                             </select>
                         <?php endif; ?>

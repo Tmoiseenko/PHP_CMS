@@ -35,17 +35,25 @@ class Profile
                 $fio = htmlspecialchars($_POST['fio']) != $user->email ? htmlspecialchars($_POST['fio']) : $user->fio;
                 $newPassword = $_POST['newPassword'] != '' ? password_hash($_POST['newPassword'], PASSWORD_BCRYPT) : $user->password;
                 $email = $_POST['email'] != $user->email ? $_POST['email'] : $user->email;
-                $avatar = $_POST['avatar'] != '' ? UPLOAD_DIR . $_POST['avatar'] : $user->avatar;
                 $about = htmlspecialchars($_POST['about']) != $user->about ? htmlspecialchars($_POST['about']) : $user->about;
+
+                if (isset($_FILES) && $_FILES['image']['name'] !== ''){
+                    $image = file_get_contents($_FILES['image']['tmp_name']);
+                    if ($image) {
+                        if (file_put_contents($_SERVER['DOCUMENT_ROOT'] . UPLOAD_DIR . $_FILES['image']['name'], $image)){
+                            $avatar = UPLOAD_DIR . $_FILES['image']['name'];
+                        }
+                    }
+                }
 
                 $user->fio = $fio;
                 $user->email = $email;
                 $user->login = $login;
                 $user->password = $newPassword;
-                $user->avatar = $avatar;
+                $user->avatar = $avatar ?? '';
                 $user->about = $about;
                 $user->save();
-                return header("Location: /profile/$user->login");
+                return header("Location: /profile/$user->id");
             } else {
                 return new View('edit_profile', [
                     'title'  =>  "Редактирование профиля пользователя",

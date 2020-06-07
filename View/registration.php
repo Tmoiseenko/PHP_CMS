@@ -27,19 +27,19 @@
                             <div class="content">
                                 <form method="post" class="form-validate">
                                     <div class="form-group">
-                                        <input id="register-username" type="text" name="login" required pattern="^[a-zA-Z0-9]{3,20}$" data-msg="Please enter your username" class="input-material">
+                                        <input id="register-username" type="text" name="login" required pattern="^[a-zA-Z0-9]{3,20}$" data-msg="Please enter your username" class="input-material" value="<?= $_POST ["login"] ?? '' ?>">
                                         <label for="register-username" class="label-material">Ваше никнейм</label>
                                     </div>
                                     <div class="form-group">
-                                        <input id="register-email" type="email" name="email" required pattern="\S+@[a-z]+.[a-z]+" data-msg="Please enter a valid email address" class="input-material">
+                                        <input id="register-email" type="email" name="email" required pattern="\S+@[a-z]+.[a-z]+" data-msg="Please enter a valid email address" class="input-material" value="<?= $_POST ["email"] ?? '' ?>">
                                         <label for="register-email" class="label-material">Аддрес электронной почты</label>
                                     </div>
                                     <div class="form-group">
-                                        <input id="register-password" type="password" name="password" required data-msg="Please enter your password" class="input-material">
+                                        <input id="register-password" type="password" name="password" required data-msg="Please enter your password" class="input-material" value="<?= $_POST ["password"] ?? '' ?>">
                                         <label for="register-password" class="label-material">Ваш пароль</label>
                                     </div>
                                     <div class="form-group">
-                                        <input id="confirm-password" type="password" name="confirm" required data-msg="Please enter your password" class="input-material">
+                                        <input id="confirm-password" type="password" name="confirm" required data-msg="Please enter your password" class="input-material" value="<?= $_POST ["confirm"] ?? '' ?>">
                                         <label for="confirm-password" class="label-material">Повторите ваш пароль</label>
                                     </div>
                                     <div class="form-group">

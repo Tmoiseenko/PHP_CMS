@@ -28,12 +28,12 @@ class Category
         $objects = $objects->skip($start)->take($per_page);
         $template = $adminTmp ? 'admin.get-all-category' : 'index' ;
         return new View($template, [
-            'title'  =>  "Все посты",
+            'title'  =>  "Все категории",
             'objects'   =>  $objects,
             'num_pages' => $num_pages,
             'page' => $page,
             'current_page' => $current_page,
-            'model' => 'post'
+            'model' => 'category'
         ]);
     }
 
@@ -53,4 +53,85 @@ class Category
             return [];
         }
     }
+
+    static public function createCategory()
+    {
+        if (isset($_SESSION["is_auth"]) && $_SESSION["is_auth"] === true){
+            return new View('admin.categoryCreate', [
+                'title'  =>  'Создание Категории',
+            ]);
+        } else {
+            return header("Location: /login");
+        }
+    }
+
+    static public function saveCategory()
+    {
+        if (isset($_SESSION["is_auth"]) && $_SESSION["is_auth"] === true){
+            if (isset($_POST['createCategory'])) {
+                $category = htmlspecialchars($_POST['category']);
+                try {
+                    $post = CategoryModel::firstOrNew(['name' => $category]);
+                    $post->save();
+                    return header("Location: /admin/category");
+                } catch (\Exception $e){
+                    return new View('404', [
+                        'title'  =>  'Упс кажется такой страницы нет',
+                        'e'    => $e
+                    ]);
+                }
+            }
+        } else {
+            return header("Location: /login");
+        }
+    }
+
+    static public function getUpdateCategory($model, $id)
+    {
+        if (isset($_SESSION["is_auth"]) && $_SESSION["is_auth"] === true){
+            try {
+                $category = CategoryModel::findOrFail($id);
+                return new View('admin.categoryUpdate', [
+                    'title'  =>  'Обновление категории',
+                    'category'  => $category,
+                ]);
+            } catch (ModelNotFoundException $e) {
+                return new View('404', [
+                    'title'  =>  'Упс кажется такой страницы нет',
+                    'e'    => $e
+                ]);
+            } catch (\Exception $e) {
+                return new View('404', [
+                    'title'  =>  'Упс кажется такой страницы нет',
+                    'e'    => $e
+                ]);
+            }
+
+        } else {
+            return header("Location: /login");
+        }
+    }
+
+    static public function saveUpdateCategory($model, $id)
+    {
+        if (isset($_SESSION["is_auth"]) && $_SESSION["is_auth"] === true){
+            if (isset($_POST['createCategory'])) {
+                $category = htmlspecialchars($_POST['category']);
+                try {
+                    $post = CategoryModel::findOrFail($id);
+                    $post->name = $category;
+                    $post->save();
+                    return header("Location: /admin/category");
+                } catch (\Exception $e){
+                    return new View('404', [
+                        'title'  =>  'Упс кажется такой страницы нет',
+                        'e'    => $e
+                    ]);
+                }
+            }
+        } else {
+            return header("Location: /login");
+        }
+    }
+
 }

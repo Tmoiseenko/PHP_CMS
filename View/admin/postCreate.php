@@ -8,10 +8,6 @@
                     <input type="text" class="form-control" required name="title">
                 </div>
                 <div class="form-group row">
-                    <label class="form-control-label">Слаг</label>
-                    <input type="text" class="form-control" required name="slug">
-                </div>
-                <div class="form-group row">
 
                     <?php if ($categories) :?>
                         <label class="form-control-label">Выберите категорию</label>

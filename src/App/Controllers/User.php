@@ -28,7 +28,7 @@ class User
         $objects = $objects->skip($start)->take($per_page);
         $template = $adminTmp ? 'admin.get-all-user' : 'index' ;
         return new View($template, [
-            'title'  =>  "Все посты",
+            'title'  =>  "Все пользователи",
             'objects'   =>  $objects,
             'num_pages' => $num_pages,
             'page' => $page,
@@ -37,10 +37,10 @@ class User
         ]);
     }
 
-    static public function getUser($login)
+    static public function getUser($id)
     {
         try {
-            $user = UserModel::where('login', '=', $login)->firstOrFail();
+            $user = UserModel::find($id);
             return $user;
         } catch (\Exception $e) {
             return new View('404', [
@@ -66,5 +66,11 @@ class User
         $user->role()->associate($role);
         $user->save();
         return header("Location: /admin/user");
+    }
+
+    static function chekUserLogin($login)
+    {
+        $user = UserModel::where('login', $login)->get();
+        return $user->count();
     }
 }

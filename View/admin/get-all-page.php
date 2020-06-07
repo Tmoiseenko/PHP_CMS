@@ -1,4 +1,5 @@
 <?php require_once VIEW_DIR . '/layout/admin_header.php'; ?>
+<?php require_once VIEW_DIR . '/admin/admin_filter.php'; ?>
     <div class="col-lg-12">
         <div class="card">
             <div class="card-body">
@@ -7,7 +8,7 @@
                         <thead>
                         <tr>
                             <th>#</th>
-                            <th>Название категории</th>
+                            <th>Название страницы</th>
                             <th>Слаг</th>
                             <th></th>
                         </tr>

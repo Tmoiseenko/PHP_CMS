@@ -9,7 +9,7 @@
                 <div class="post-category">
                     <a href="category.html">Lifestyle</a>
                 </div>
-                <h1>Mel ut impetus suscipit tincidunt. Cum id ullum laboramus persequeris.</h1>
+                <h1><?= $post->title ?></h1>
                 <ul class="post-meta">
                     <li><a href="/profile/<?= $post->user->login ?>"><?= $post->user->fio ?></a></li>
                     <li><?= $post->created_at ?></li>
@@ -66,6 +66,16 @@
                     <div class="section-title">
                         <h3 class="title">Оставте коментарий</h3>
                     </div>
+                    <?php
+                    $warning = "comment_warning_$post->id";
+                    if (isset($_SESSION["comment_warning"][$warning])) : ?>
+                        <div class="alert alert-<?= $_SESSION["comment_warning"][$warning]['error_class'] ?>">
+                            <?= $_SESSION["comment_warning"][$warning]['error'] ?>
+                            <?php if ($_SESSION["comment_warning"][$warning]['error'] === 'danger'): ?>
+                                <a href="/login">Войти</a>
+                            <?php endif; ?>
+                        </div>
+                    <?php endif; ?>
                     <form action="/comment/<?= $post->id ?>" method="post" class="post-reply">
                         <div class="row">
                             <div class="col-md-12">

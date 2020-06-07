@@ -42,7 +42,7 @@ class Subscribe
         $email = $_POST['subscribe'];
         try {
             $subscribe = SubscribeModel::firstOrCreate(['email' => $email]);
-            if ($email === $_SESSION['user_info']['email']){
+            if (isset($_SESSION['user_info']['email']) && $email === $_SESSION['user_info']['email']){
                 $_SESSION['subscribe'] = true;
             }
             return new View('subscribe', [

@@ -27,7 +27,7 @@ class Setting
         $objects = $objects->skip($start)->take($per_page);
         $template = $adminTmp ? 'admin.get-all-setting' : 'index' ;
         return new View($template, [
-            'title'  =>  "Все посты",
+            'title'  =>  "Все настройки",
             'objects'   =>  $objects,
             'num_pages' => $num_pages,
             'page' => $page,

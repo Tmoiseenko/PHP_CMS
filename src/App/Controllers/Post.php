@@ -111,7 +111,7 @@ class Post
                 $cat = User::findOrFail((int) $_POST['category']);
                 $prop = [
                     'title' => htmlspecialchars($_POST['title']),
-                    'slug' => htmlspecialchars($_POST['slug']),
+                    'slug' => htmlspecialchars(translit($_POST['title'])),
                     'content' => htmlspecialchars($_POST['content']),
                     'category_id' => $cat_id ?? (int) $_POST['category'],
                     'image' => $imagePath ?? '',

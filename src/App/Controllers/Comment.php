@@ -28,19 +28,19 @@ class Comment
         $objects = $objects->skip($start)->take($per_page);
         $template = $adminTmp ? 'admin.get-all-comment' : 'index' ;
         return new View($template, [
-            'title'  =>  "Все посты",
+            'title'  =>  "Все комментарии",
             'objects'   =>  $objects,
             'num_pages' => $num_pages,
             'page' => $page,
             'current_page' => $current_page,
-            'model' => 'post'
+            'model' => 'comment'
         ]);
     }
 
     static public function saveComment($id)
     {
+        unset($_SESSION['comment_warning']);
         if (isset($_SESSION["is_auth"]) && $_SESSION["is_auth"] === true) {
-
             $role = ['administrator', 'moderator'];
             $user = User::where('login', $_SESSION ["user_info"]["login"])->first();
             $comment = new CommentModel;
@@ -50,9 +50,16 @@ class Comment
             $comment->moderate = in_array($_SESSION ["user_info"]["role"], $role) ? 1 : 0;
             $comment->save();
             $ref = $_SERVER["HTTP_REFERER"];
+            $warning = "comment_warning_$id";
+            $_SESSION["comment_warning"][$warning] = ['error' => 'Ваш комментарий отправлен на модерацию',
+                                            'error_class' => 'info'];
             return header("Location: $ref");
         } else {
-            return header("Location: /login");
+            $ref = $_SERVER["HTTP_REFERER"];
+            $warning = "comment_warning_$id";
+            $_SESSION["comment_warning"][$warning] = ['error' => 'Пожалуйста авторизуйтесь',
+                                            'error_class' => 'danger'];
+            return header("Location: $ref");
         }
     }
 

@@ -29,7 +29,7 @@ class Page
         $objects = $objects->skip($start)->take($per_page);
         $template = $adminTmp ? 'admin.get-all-page' : 'index' ;
         return new View($template, [
-            'title'  =>  "Все посты",
+            'title'  =>  "Все страницы",
             'objects'   =>  $objects,
             'num_pages' => $num_pages,
             'page' => $page,

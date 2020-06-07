@@ -4,11 +4,11 @@
     <div class="row">
         <div class="col-8  pl-5 pr-5">
             <?php if (isset($error)): ?>
-                <div class="alert alert-danger" role="alert">
+                <div class="alert alert-danger"  role="alert">
                     <?= $error ?>
                 </div>
             <?php endif; ?>
-                <form method="post" class="form-validate">
+                <form method="post" class="form-validate" enctype="multipart/form-data">
                     <div class="form-group">
                         <label for="register-username" class="label-material">Ваше ФИО</label>
                         <input  class="form-control" id="register-username" type="text" name="fio" required value="<?= $profile->fio ?>">
@@ -31,17 +31,11 @@
                     </div>
                     <div class="form-group">
                         <label for="file-username" class="label-material">Ваш аватар</label>
-                        <input class="form-control" id="file-username" type="file" name="avatar" pattern="^[a-zA-Z0-9]{3,20}$">
+                        <input class="form-control" id="file-username" type="file" name="image" accept="image/*">
                     </div>
                     <div class="form-group">
                         <label for="about-user" class="label-material">Раскажите о себе</label>
                         <textarea rows="5" class="form-control" id="about-user" name="about" pattern="^[a-zA-Z0-9]{3,20}$"><?= $profile->about ?></textarea>
-                    </div>
-                    <div class="form-group">
-                        <input class="form-check-input" type="checkbox" id="agreement" required name="agreement">
-                        <label class="form-check-label" for="agreement">
-                            Согласие на обработку персональных данных и <a href="">правилами сайта</a>
-                        </label>
                     </div>
                     <div class="form-group">
                         <input id="regidter" type="submit" name="editProfile" class="btn btn-primary" value="Сохранить изменения">
